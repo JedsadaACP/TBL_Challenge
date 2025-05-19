@@ -1,0 +1,248 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    background-color: #f0f2f5;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.container {
+    width: 100%;
+    max-width: 1500px;
+    background-color: #fff;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    border-radius: 10px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+header {
+    background-color: #00529b; /* TBL Blue */
+    color: white;
+    padding: 15px 25px;
+    text-align: center;
+}
+
+header h1 {
+    margin: 0 0 10px 0;
+    font-size: 1.7em;
+    font-weight: 600;
+}
+
+.stats-bar {
+    font-size: 0.9em;
+    color: #e0e0e0;
+}
+.stats-bar span {
+    margin: 0 10px;
+}
+
+
+main {
+    display: flex;
+    flex-grow: 1; /* Allow main to fill available space */
+    padding: 15px;
+    min-height: 75vh;
+}
+
+#map {
+    height: 75vh;
+    width: 68%;
+    border: 1px solid #d1d1d1;
+    border-radius: 8px;
+    box-shadow: inset 0 0 5px rgba(0,0,0,0.05);
+}
+
+.sidebar {
+    width: 32%;
+    padding-left: 20px;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    max-height: 75vh; /* Match map height */
+}
+
+.sidebar h2 {
+    margin-top: 0;
+    color: #00529b;
+    border-bottom: 2px solid #e9ecef;
+    padding-bottom: 8px;
+    font-size: 1.3em;
+}
+
+#truck-list-container {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1; /* Allow truck list to take available space in sidebar */
+}
+
+#truck-search {
+    width: calc(100% - 22px); /* Account for padding and border */
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    font-size: 0.9em;
+}
+
+#truck-list {
+    overflow-y: auto; /* Scroll for truck list items */
+    flex-grow: 1;
+    border: 1px solid #e9ecef;
+    border-radius: 5px;
+    background-color: #f8f9fa;
+}
+
+.truck-item {
+    padding: 12px 15px;
+    border-bottom: 1px solid #dee2e6;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+    position: relative; /* For pseudo-elements if needed */
+}
+.truck-item:last-child {
+    border-bottom: none;
+}
+
+.truck-item:hover {
+    background-color: #e9ecef;
+}
+
+.truck-item.active-selection {
+    background-color: #cfe2ff; /* Light blue for active selection */
+    border-left: 4px solid #00529b;
+}
+
+
+.truck-item strong {
+    font-size: 1.1em;
+    color: #343a40;
+}
+
+.truck-item .bu-tag {
+    font-size: 0.75em;
+    padding: 2px 6px;
+    border-radius: 4px;
+    color: white;
+    margin-left: 8px;
+    font-weight: bold;
+}
+.truck-item .bu-sermsuk { background-color: #28a745; /* Green */}
+.truck-item .bu-tbl { background-color: #007bff; /* Blue */}
+
+.truck-item .status-indicator {
+    display: inline-block;
+    padding: 3px 8px;
+    border-radius: 12px; /* Pill shape */
+    font-size: 0.8em;
+    font-weight: 500;
+    color: white;
+    margin-top: 5px;
+}
+
+.status-en_route { background-color: #ffc107; color: #333 !important; } /* Yellow */
+.status-arrived { background-color: #198754; } /* Green */
+.status-loading, .status-unloading { background-color: #6c757d; } /* Gray */
+.status-stopped { background-color: #fd7e14; } /* Orange */
+.status-delayed {
+    background-color: #dc3545 !important; /* Red, important to override other status colors */
+    color: white !important;
+}
+.status-delayed.status-en_route, .status-delayed.status-stopped { /* Keep base color if also delayed */
+    /* No specific background needed here, handled by .status-delayed */
+}
+
+.truck-item p {
+    margin: 4px 0;
+    font-size: 0.85em;
+    color: #495057;
+}
+
+
+#truck-details {
+    padding: 15px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+    font-size: 0.9em;
+    margin-top: 15px;
+    min-height: 150px; /* Ensure it has some height even when empty */
+}
+
+#truck-details h3 {
+    margin-top: 0;
+    color: #00529b;
+    font-size: 1.2em;
+}
+
+#truck-details p {
+    margin: 6px 0;
+    line-height: 1.5;
+}
+#truck-details strong {
+    color: #004180; /* Darker TBL Blue */
+}
+
+#truck-details .shipment-info {
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px dashed #ccc;
+}
+#truck-details .shipment-info h4 {
+    margin-bottom: 8px;
+    font-size: 1.1em;
+    color: #343a40;
+}
+#truck-details .shipment-item {
+    margin-bottom: 8px;
+    padding-left: 10px;
+    border-left: 3px solid #007bff;
+}
+
+
+footer {
+    text-align: center;
+    padding: 12px;
+    background-color: #343a40;
+    color: white;
+    font-size: 0.8em;
+}
+
+/* Leaflet popup customization */
+.leaflet-popup-content-wrapper {
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+.leaflet-popup-content {
+    font-size: 0.9em;
+    line-height: 1.4;
+    max-height: 220px;
+    overflow-y: auto;
+}
+.popup-truck-id {
+    font-weight: bold;
+    color: #00529b;
+    font-size: 1.1em;
+    margin-bottom: 5px;
+    display: block;
+}
+.popup-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 6px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9em;
+    margin-top: 8px;
+    transition: background-color 0.2s;
+}
+.popup-button:hover {
+    background-color: #0056b3;
+}

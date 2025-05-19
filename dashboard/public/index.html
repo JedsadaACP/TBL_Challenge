@@ -1,246 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TBL Delivery Tracker</title>
-
-  <!-- Leaflet CSS -->
-  <link
-    rel="stylesheet"
-    href="https://unpkg.com/leaflet @1.9.4/dist/leaflet.css"
-    integrity="sha256-xodZBNTC5n17Xt2atTPuE1HxjQUgWsdBo3MPls4dETSMg=="
-    crossorigin=""
-  />
-
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f9f9f9;
-    }
-
-    header {
-      background: #004d80;
-      color: white;
-      padding: 15px 20px;
-      font-size: 20px;
-    }
-
-    .container {
-      padding: 20px;
-    }
-
-    #map {
-      height: 400px;
-      margin-bottom: 20px;
-    }
-
-    .alert {
-      color: red;
-      font-weight: bold;
-      padding: 10px;
-      background: #ffe6e6;
-      margin: 10px 0;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-bottom: 20px;
-    }
-
-    th, td {
-      padding: 10px;
-      border: 1px solid #ccc;
-    }
-
-    .delayed-row {
-      background: #fff3cd;
-    }
-
-    .truck-details {
-      margin-top: 10px;
-      background: white;
-      border: 1px solid #ccc;
-      padding: 15px;
-      border-radius: 6px;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TBL Logistics Dashboard</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+          integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+          crossorigin=""/>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header>🚚 Thai Beverage Delivery Tracker</header>
-
-  <div class="container">
-    <div id="map"></div>
-
-    <div id="alerts"></div>
-
-    <h2 class="font-bold">🚛 Truck List</h2>
-    <select id="filter-select">
-      <option value="all">All</option>
-      <option value="TBL">TBL</option>
-      <option value="Sermsuk">Sermsuk</option>
-    </select>
-
-    <table id="truck-table">
-      <thead>
-        <tr>
-          <th>Truck ID</th>
-          <th>Business Unit</th>
-          <th>Status</th>
-          <th>ETA</th>
-          <th>Direction</th>
-        </tr>
-      </thead>
-      <tbody></tbody>
-    </table>
-
-    <div class="truck-details" id="shipment-panel">
-      <h3>📦 Shipment Details</h3>
-      <p>Select a truck to view details</p>
+    <div class="container">
+        <header>
+            <h1>TBL Real-Time Logistics Dashboard</h1>
+            <div class="stats-bar">
+                <span id="total-trucks">Total Trucks: 0</span> |
+                <span id="trucks-enroute">En Route: 0</span> |
+                <span id="trucks-delayed">Delayed: 0</span>
+            </div>
+        </header>
+        <main>
+            <div id="map"></div>
+            <div class="sidebar">
+                <h2>Truck Overview</h2>
+                <div id="truck-list-container">
+                    <input type="text" id="truck-search" placeholder="Search by Truck ID or SKU...">
+                    <div id="truck-list">
+                        <p>Loading trucks...</p>
+                    </div>
+                </div>
+                <hr>
+                <h2>Truck Details</h2>
+                <div id="truck-details">
+                    <p>Click on a truck in the list or on the map to see details.</p>
+                </div>
+            </div>
+        </main>
+        <footer>
+            <p>TBL Hackathon Challenge - Prototype</p>
+        </footer>
     </div>
-  </div>
 
-  <!-- Leaflet JS -->
-  <script src="https://unpkg.com/leaflet @1.9.4/dist/leaflet.js"></script>
-
-  <!-- Dashboard JS -->
-  <script type="text/javascript">
-    // Global state
-    let trucks = [];
-
-    // Map
-    let map = null;
-
-    function initMap() {
-      if (map) return;
-
-      map = L.map('map').setView([13.7465, 100.5278], 13);
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; OpenStreetMap contributors'
-      }).addTo(map);
-    }
-
-    function updateMap(truckData) {
-      if (!map) initMap();
-
-      // Clear existing markers
-      map.eachLayer(layer => {
-        if (layer instanceof L.Marker) map.removeLayer(layer);
-      });
-
-      truckData.forEach(truck => {
-        const iconColor = truck.is_delayed ? "red" : "blue";
-
-        const marker = L.circleMarker([truck.latitude, truck.longitude], {
-          color: iconColor,
-          radius: 8
-        }).addTo(map);
-
-        marker.bindPopup(`<b>${truck.truck_id}</b><br>Status: ${truck.status}<br>ETA: ${new Date(truck.eta).toLocaleTimeString()}`);
-      });
-    }
-
-    function updateTable(truckData) {
-      const tbody = document.querySelector("#truck-table tbody");
-      const filter = document.getElementById("filter-select").value;
-
-      // Apply filter
-      const filtered = filter === "all"
-        ? truckData
-        : truckData.filter(t => t.business_unit === filter);
-
-      tbody.innerHTML = "";
-
-      filtered.forEach((truck, idx) => {
-        const row = document.createElement("tr");
-        row.className = truck.is_delayed ? "delayed-row" : "";
-        row.innerHTML = `
-          <td>${truck.truck_id}</td>
-          <td>${truck.business_unit}</td>
-          <td>${truck.status}</td>
-          <td>${new Date(truck.eta).toLocaleTimeString()}</td>
-          <td>${truck.direction}</td>
-        `;
-        row.addEventListener("click", () => showShipmentDetails(truck));
-        tbody.appendChild(row);
-      });
-    }
-
-    function showShipmentDetails(truck) {
-      const panel = document.getElementById("shipment-panel");
-      panel.innerHTML = `
-        <h3 class="font-bold">📦 Shipment for ${truck.truck_id}</h3>
-        <table style="width:100%">
-          <thead>
-            <tr>
-              <th>Order ID</th>
-              <th>SKU</th>
-              <th>Quantity</th>
-              <th>Expected Arrival</th>
-            </tr>
-          </thead>
-          <tbody>
-            ${truck.shipments.map(s => `
-              <tr>
-                <td>${s.order_id}</td>
-                <td>${s.sku}</td>
-                <td>${s.quantity}</td>
-                <td>${new Date(s.expected_arrival_time).toLocaleTimeString()}</td>
-              </tr>
-            `).join("")}
-          </tbody>
-        </table>
-      `;
-    }
-
-    function updateAlerts(truckData) {
-      const alertPanel = document.getElementById("alerts");
-      alertPanel.innerHTML = "";
-
-      const delayedTrucks = truckData.filter(t => t.is_delayed && t.shipments.length > 0);
-
-      if (delayedTrucks.length === 0) {
-        const div = document.createElement("div");
-        div.className = "alert";
-        div.textContent = "✅ All deliveries are on time";
-        alertPanel.appendChild(div);
-        return;
-      }
-
-      delayedTrucks.forEach((truck, i) => {
-        const div = document.createElement("div");
-        div.className = "alert";
-        div.innerHTML = `
-          ⚠️ ${truck.truck_id} – Expected: 
-          ${truck.shipments.map(s => new Date(s.expected_arrival_time).toLocaleTimeString()).join(", ")}
-          | Calculated: ${new Date(truck.eta).toLocaleTimeString()}
-        `;
-        alertPanel.appendChild(div);
-      });
-    }
-
-    async function fetchTrucks() {
-      try {
-        const res = await fetch("http://localhost:5000/api/dashboard");
-        trucks = await res.json();
-        updateMap(trucks);
-        updateTable(trucks);
-        updateAlerts(trucks);
-      } catch (err) {
-        console.error("Failed to fetch truck data:", err);
-      }
-    }
-
-    // Initial load + polling
-    fetchTrucks();
-    setInterval(fetchTrucks, 10000);  // Refresh every 10 seconds
-
-    // Filter event
-    document.getElementById("filter-select").addEventListener("change", () => {
-      updateTable(trucks);
-    });
-  </script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+            integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+            crossorigin=""></script>
+    <script src="script.js"></script>
 </body>
 </html>

@@ -1,0 +1,29 @@
+[
+    {
+        "warehouse_id": "WH-BKK-01",
+        "name": "Bangkok Central Warehouse",
+        "location_coordinates": {
+            "latitude": 13.7563,
+            "longitude": 100.5018
+        },
+        "geofence_radius_km": 5.0
+    },
+    {
+        "warehouse_id": "WH-NKR-02",
+        "name": "Nakhon Ratchasima Hub",
+        "location_coordinates": {
+            "latitude": 14.9723,
+            "longitude": 102.0856
+        },
+        "geofence_radius_km": 7.5
+    },
+    {
+        "warehouse_id": "WH-CNX-03",
+        "name": "Chiang Mai Distribution Point",
+        "location_coordinates": {
+            "latitude": 18.7877,
+            "longitude": 98.9931
+        },
+        "geofence_radius_km": 6.0
+    }
+]

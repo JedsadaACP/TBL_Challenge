@@ -1,0 +1,70 @@
+[
+    {
+        "vehicle_registration_number": "VEH-001-AB",
+        "sku_details": [
+            {
+                "sku_id": "BEV001",
+                "description": "Chang Beer Can 320ml",
+                "quantity": 1200
+            },
+            {
+                "sku_id": "BEV002",
+                "description": "Leo Beer Bottle 620ml",
+                "quantity": 800
+            }
+        ],
+        "scheduled_arrival_time": "2025-05-22T13:23:48.490890Z",
+        "destination_warehouse_id": "WH-BKK-01"
+    },
+    {
+        "vehicle_registration_number": "VEH-002-CD",
+        "sku_details": [
+            {
+                "sku_id": "SNK001",
+                "description": "Lay's Classic Potato Chips 50g",
+                "quantity": 2000
+            },
+            {
+                "sku_id": "SNK002",
+                "description": "Tasto Crab Curry Flavor 48g",
+                "quantity": 1500
+            }
+        ],
+        "scheduled_arrival_time": "2025-05-22T19:23:48.490896Z",
+        "destination_warehouse_id": "WH-NKR-02"
+    },
+    {
+        "vehicle_registration_number": "VEH-003-EF",
+        "sku_details": [
+            {
+                "sku_id": "WAT001",
+                "description": "Singha Drinking Water 600ml",
+                "quantity": 2400
+            },
+            {
+                "sku_id": "WAT002",
+                "description": "Crystal Water Bottle 600ml",
+                "quantity": 1800
+            }
+        ],
+        "scheduled_arrival_time": "2025-05-22T12:53:48.490899Z",
+        "destination_warehouse_id": "WH-BKK-01"
+    },
+    {
+        "vehicle_registration_number": "VEH-004-GH",
+        "sku_details": [
+            {
+                "sku_id": "WAT003",
+                "description": "Nestle Pure Life 1.5L",
+                "quantity": 1000
+            },
+            {
+                "sku_id": "BEV003",
+                "description": "Oishi Green Tea Honey Lemon 380ml",
+                "quantity": 700
+            }
+        ],
+        "scheduled_arrival_time": "2025-05-22T16:23:48.490951Z",
+        "destination_warehouse_id": "WH-CNX-03"
+    }
+]

@@ -1,0 +1,54 @@
+[
+    {
+        "registration_number": "VEH-001-AB",
+        "gps_coordinates": {
+            "latitude": 14.0123,
+            "longitude": 100.6045
+        },
+        "speed": 65.5,
+        "last_update_timestamp": "2025-05-22T11:18:48.481804Z",
+        "origin": "Sermsuk Factory (Pathum Thani)",
+        "destination": "WH-BKK-01",
+        "business_unit": "Beverages",
+        "status": "In Transit"
+    },
+    {
+        "registration_number": "VEH-002-CD",
+        "gps_coordinates": {
+            "latitude": 16.4567,
+            "longitude": 99.5123
+        },
+        "speed": 72.0,
+        "last_update_timestamp": "2025-05-22T11:21:48.490870Z",
+        "origin": "TBL Factory (Kamphaeng Phet)",
+        "destination": "WH-NKR-02",
+        "business_unit": "Snacks",
+        "status": "Loading"
+    },
+    {
+        "registration_number": "VEH-003-EF",
+        "gps_coordinates": {
+            "latitude": 13.78,
+            "longitude": 100.52
+        },
+        "speed": 45.0,
+        "last_update_timestamp": "2025-05-22T11:13:48.490881Z",
+        "origin": "Sermsuk Factory (Pathum Thani)",
+        "destination": "WH-BKK-01",
+        "business_unit": "Beverages",
+        "status": "Delayed"
+    },
+    {
+        "registration_number": "VEH-004-GH",
+        "gps_coordinates": {
+            "latitude": 15.01,
+            "longitude": 102.01
+        },
+        "speed": 78.5,
+        "last_update_timestamp": "2025-05-22T11:22:48.490885Z",
+        "origin": "TBL Factory (Kamphaeng Phet)",
+        "destination": "WH-CNX-03",
+        "business_unit": "Water",
+        "status": "In Transit"
+    }
+]

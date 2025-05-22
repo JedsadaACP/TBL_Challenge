@@ -1,0 +1,39 @@
+#map {
+    height: 500px; /* Or any appropriate height */
+    width: 100%;
+}
+
+body { 
+    margin: 0; 
+    font-family: sans-serif; 
+}
+
+/* Basic styling for popups if needed, though Leaflet's default is usually fine */
+
+#warehouse-pov-section {
+    padding: 15px;
+    background-color: #f4f4f4;
+    margin-top: 10px;
+}
+#warehouse-select {
+    margin-bottom: 10px;
+    padding: 5px;
+}
+#incoming-shipments-list ul {
+    list-style-type: none;
+    padding: 0;
+}
+#incoming-shipments-list li {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    margin-bottom: 8px;
+    padding: 10px;
+    border-radius: 4px;
+}
+#incoming-shipments-list li ul li {
+    font-size: 0.9em;
+    background-color: transparent;
+    border: none;
+    padding: 2px;
+    margin-bottom: 0;
+}
